@@ -18,11 +18,7 @@ module.exports = (req, res, next) => {
 };
 
 const filterMessage = (message) => {
-  let keysArray = Object.keys(wordReplacements);
-  for(let i = 0; i < keysArray.length; i++) {
-    if (message.toLowerCase().indexOf(keysArray[i]) > -1) {
-      message = message.toLowerCase().replace(keysArray[i], wordReplacements[keysArray[i]]);
-    }
-  }
+  message = message.toLowerCase()
+    .replace(new RegExp(Object.keys(blacklist).join('|'),'gi'), match => blacklist[match]);
   return message;
 };
